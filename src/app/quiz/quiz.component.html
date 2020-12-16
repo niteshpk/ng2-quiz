@@ -47,12 +47,19 @@
   </div>
   <div class="result" *ngIf="mode=='result'">
     <h2>Quiz Result</h2>
+    <div>
+      <span>Notations:</span>
+      <span class="pl-5">Correct Answer: <i class="bi-check" style="font-size: 2rem; color: green;"></i></span>
+      <span class="pl-5">Wrong Answer: <i class="bi bi-x" style="font-size: 2rem; color: red;"></i></span>
+    </div>
     <div *ngFor="let question of quiz.questions; let index = index">
       <div class="result-question">
         <h5>{{index + 1}}. {{question.name}}</h5>
         <div class="row">
           <div class="col-6" *ngFor="let Option of question.options">
-            <input id="{{Option.id}}" type="checkbox" disabled="disabled" [(ngModel)]="Option.selected" /> {{Option.name}}
+            <input id="{{Option.id}}" type="checkbox" disabled="disabled" [(ngModel)]="Option.selected" /> {{Option.name}} 
+            <span *ngIf="Option.isAnswer"><i class="bi-check" style="font-size: 2rem; color: green;"></i></span>
+            <span *ngIf="Option.selected && !Option.isAnswer"><i class="bi-x" style="font-size: 2rem; color: red;"></i></span>
           </div>
         </div>
         <div class="p-1 m-2 alert {{ isCorrect(question) == 'correct'? 'alert-success': 'alert-danger'}}">Your answer is {{isCorrect(question)}}.</div>

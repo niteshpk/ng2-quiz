@@ -3,11 +3,19 @@
     "name": "C# and .Net Framework",
     "description": "C# and .Net Quiz (contains C#, .Net Framework, Linq, etc.)",
     "config": {
-        "shuffleQuestions": true,
-        "showPager": false,
         "allowBack": true,
-        "autoMove": true
-    },
+        "allowReview": true,
+        "autoMove": false,
+        "duration": 10,
+        "pageSize": 1,
+        "requiredAll": false,
+        "richText": false,
+        "shuffleQuestions": false,
+        "shuffleOptions": false,
+        "showClock": false,
+        "showPager": true,
+        "theme": "none"
+      },
     "questions": [
         {
             "id": 1010,

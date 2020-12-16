@@ -2,6 +2,20 @@
     "id": 1,
     "name": "JavaScript Quiz",
     "description": "JavaScript Quiz (Basic Multiple Choice Questions for JavaScript Developers)",
+    "config": {
+        "allowBack": true,
+        "allowReview": true,
+        "autoMove": false,
+        "duration": 10,
+        "pageSize": 1,
+        "requiredAll": false,
+        "richText": false,
+        "shuffleQuestions": false,
+        "shuffleOptions": false,
+        "showClock": false,
+        "showPager": true,
+        "theme": "none"
+      },
     "questions": [
         {
             "id": 1010,

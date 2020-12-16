@@ -15,11 +15,12 @@ export class QuizComponent implements OnInit {
   quiz: Quiz = new Quiz(null);
   mode = 'quiz';
   quizName: string;
+  seconds = 0;
   config: QuizConfig = {
     'allowBack': true,
     'allowReview': true,
     'autoMove': false,  // if true, it will move to next question automatically when answered.
-    'duration': 300,  // indicates the time (in secs) in which quiz needs to be completed. 0 means unlimited.
+    'duration': 10,  // indicates the time (in secs) in which quiz needs to be completed. 0 means unlimited.
     'pageSize': 1,
     'requiredAll': false,  // indicates if you must answer all the questions before submitting.
     'richText': false,
@@ -53,12 +54,27 @@ export class QuizComponent implements OnInit {
     this.quizService.get(quizName).subscribe(res => {
       this.quiz = new Quiz(res);
       this.pager.count = this.quiz.questions.length;
+      this.config = this.quiz.config || this.config;
       this.startTime = new Date();
       this.ellapsedTime = '00:00';
-      this.timer = setInterval(() => { this.tick(); }, 1000);
+      this.setTimer();
       this.duration = this.parseTime(this.config.duration);
     });
     this.mode = 'quiz';
+  }
+
+  setTimer() {
+    this.timer = setInterval(() => {
+      this.tick(); 
+      this.seconds++;
+      if (this.seconds === this.config.duration) {
+        this.clearTimer();
+      }
+    }, 1000);
+  }
+
+  clearTimer() {
+    clearInterval(this.timer);
   }
 
   tick() {
@@ -105,15 +121,32 @@ export class QuizComponent implements OnInit {
   };
 
   isCorrect(question: Question) {
-    return question.options.every(x => x.selected === x.isAnswer) ? 'correct' : 'wrong';
+    const selected = question.options.filter(x => x.selected);
+    const correct = question.options.every(x => x.selected === x.isAnswer);
+    let msg = '';
+    if (correct) {
+      msg = 'correct';
+    } else {
+      msg = 'wrong';
+    }
+
+    if (!selected.length) {
+      msg += ' (no answer given)';
+    }
+
+    return msg;
   };
 
   onSubmit() {
     let answers = [];
-    this.quiz.questions.forEach(x => answers.push({ 'quizId': this.quiz.id, 'questionId': x.id, 'answered': x.answered }));
+    this.quiz.questions.forEach(x => {
+      const answer = x.options.find(o => o.selected);
+      answers.push({ 'quizId': this.quiz.id, 'questionId': x.id, 'answered': answer && answer.id || undefined  });
+    });
 
     // Post your data to the server here. answers contains the questionId and the users' answer.
-    console.log(this.quiz.questions);
+    //console.log(this.quiz.questions);
+    //console.log(answers);
     this.mode = 'result';
   }
 }
