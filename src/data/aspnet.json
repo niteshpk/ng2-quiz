@@ -6,7 +6,7 @@
     "allowBack": true,
     "allowReview": true,
     "autoMove": false,
-    "duration": 10,
+    "duration": 600,
     "pageSize": 1,
     "requiredAll": false,
     "richText": false,

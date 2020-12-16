@@ -5,8 +5,8 @@
     "config": {
         "allowBack": true,
         "allowReview": true,
-        "autoMove": false,
-        "duration": 10,
+        "autoMove": true,
+        "duration": 900,
         "pageSize": 1,
         "requiredAll": false,
         "richText": false,
