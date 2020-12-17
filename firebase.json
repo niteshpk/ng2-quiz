@@ -1,0 +1,10 @@
+{
+  "hosting": {
+    "public": "dist/ng6-quiz",
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**"
+    ]
+  }
+}
